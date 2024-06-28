@@ -1,2 +1,2 @@
 # tradingBot
-Algorithmic trading stock system for the NASDAQ and NYSE.
+Algorithmic stock trading system for the NASDAQ and NYSE.
