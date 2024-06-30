@@ -82,7 +82,7 @@ for i in range(len(trade_recs)-1):
         print("Closed P/L:                  \033[0;31m", portfolio.getClosedPL(), "\033[0;0m\n")
 
     #Sleep for 0.8 seconds before simulating next trading day to make trading easier to follow
-    #time.sleep(0.8)
+    time.sleep(0.8)
 
 #After 300 days of simulation are over, use EndSim function to close all outstanding positions and return buy+sell prices/dates of all closed positions
 buy_prices, buy_dates, sell_prices, sell_dates = es.end_sim(portfolio, trade_recs['Date'][-1], trade_recs['Open Price'][-1])
