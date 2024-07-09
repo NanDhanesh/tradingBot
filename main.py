@@ -29,46 +29,46 @@ time.sleep(3)
 for i in range(len(trade_recs)-1):
 
     #Establishes the position size in shares as 30% of the portfolio's capital worth of the current share price
-    position_size = (0.3*portfolio.getTotalCapital()) // trade_recs['Open Price'][i] 
+    position_size = (0.3*portfolio.getTotalCapital()) // trade_recs['Open Price'].iloc[i] #trade_recs['Open Price'][i] 
 
-    print("-------------------------------------------", trade_recs['Date'][i].date(), "-------------------------------------------\n")
+    print("-------------------------------------------", trade_recs['Date'].iloc[i].date(), "-------------------------------------------\n")
 
     #Checks profit targets, stop losses, and lifespans of all existing open positions
-    portfolio.checkTargets(trade_recs['Date'][i], trade_recs['Open Price'][i])
-    portfolio.checkStops(trade_recs['Date'][i], trade_recs['Open Price'][i])
-    portfolio.checkLifespans(trade_recs['Date'][i], trade_recs['Open Price'][i])
+    portfolio.checkTargets(trade_recs['Date'].iloc[i], trade_recs['Open Price'].iloc[i])
+    portfolio.checkStops(trade_recs['Date'].iloc[i], trade_recs['Open Price'].iloc[i])
+    portfolio.checkLifespans(trade_recs['Date'].iloc[i], trade_recs['Open Price'].iloc[i])
 
     #Handling a buy recommendation
-    if trade_recs['Recommendation'][i] == 2:
+    if trade_recs['Recommendation'].iloc[i] == 2:
         #If the buy recommendation meets all risk rules, buy a new position at the current open price
-        if rc.check_buy(trade_recs['Probability'][i], portfolio.getTotalCapital(), portfolio.getUnallocatedCapital(), trade_recs['Open Price'][i], position_size) == True:
-            portfolio.openPosition(trade_recs['Date'][i], trade_recs['Open Price'][i], position_size)
-            print("\033[1;35mBought ", position_size, symbol, "at price", trade_recs['Open Price'][i], "\033[0;0m\n")
+        if rc.check_buy(trade_recs['Probability'].iloc[i], portfolio.getTotalCapital(), portfolio.getUnallocatedCapital(), trade_recs['Open Price'].iloc[i], position_size) == True:
+            portfolio.openPosition(trade_recs['Date'].iloc[i], trade_recs['Open Price'].iloc[i], position_size)
+            print("\033[1;35mBought ", position_size, symbol, "at price", trade_recs['Open Price'].iloc[i], "\033[0;0m\n")
         #If any risk rules are not met, do not execute the buy recommendation and display non-execution message
         else:
             print("Buy order not executed, rules not met \n")
 
     #Handling a hold recommendation
-    if trade_recs['Recommendation'][i] == 1:
+    if trade_recs['Recommendation'].iloc[i] == 1:
         print("Holding current positions \n")
 
     #Handling a sell recommendation
-    if trade_recs['Recommendation'][i] == 0:
+    if trade_recs['Recommendation'].iloc[i] == 0:
         #If the sell recommendation meets rules, sell the oldest position at the current open price
-        if rc.check_sell(trade_recs['Probability'][i], len(portfolio.getOpenPositions())) == True:
-            bought_date, buy_price, position_size = portfolio.closePosition(trade_recs['Date'][i], trade_recs['Open Price'][i])
+        if rc.check_sell(trade_recs['Probability'].iloc[i], len(portfolio.getOpenPositions())) == True:
+            bought_date, buy_price, position_size = portfolio.closePosition(trade_recs['Date'].iloc[i], trade_recs['Open Price'].iloc[i])
             #If the closed postion was profitable, print the profit in green
-            if ((trade_recs['Open Price'][i] - buy_price) * position_size) >= 0:
-                print("\033[1;36mSold position bought on ", bought_date," at price ", trade_recs['Open Price'][i], " for a profit of \033[1;32m", ((trade_recs['Open Price'][i] - buy_price) * position_size), "\033[0;0m\n")
+            if ((trade_recs['Open Price'].iloc[i] - buy_price) * position_size) >= 0:
+                print("\033[1;36mSold position bought on ", bought_date," at price ", trade_recs['Open Price'].iloc[i], " for a profit of \033[1;32m", ((trade_recs['Open Price'].iloc[i] - buy_price) * position_size), "\033[0;0m\n")
             #If the closed postion was not profitable, print the loss in red
             else:
-                print("\033[1;36mSold position bought on ", bought_date," at price ", trade_recs['Open Price'][i], " for a loss of \033[1;31m", ((trade_recs['Open Price'][i] - buy_price) * position_size), "\033[0;0m\n")
+                print("\033[1;36mSold position bought on ", bought_date," at price ", trade_recs['Open Price'].iloc[i], " for a loss of \033[1;31m", ((trade_recs['Open Price'].iloc[i] - buy_price) * position_size), "\033[0;0m\n")
         #If any rules are not met, do not execute the sell recommendation and display non-execution message
         else:
             print("Sell order not executed, rules not met \n")
 
     #Update the current prices and lifespans of all open positions
-    portfolio.update(trade_recs['Open Price'][i])
+    portfolio.update(trade_recs['Open Price'].iloc[i])
     #Printing the number of currently open positions
     print("There are", portfolio.getNumOpenPositions(), "open positions\n")
     #Printing total account value, allocated capital, and unallocated capital
@@ -85,7 +85,7 @@ for i in range(len(trade_recs)-1):
     time.sleep(0.8)
 
 #After 300 days of simulation are over, use EndSim function to close all outstanding positions and return buy+sell prices/dates of all closed positions
-buy_prices, buy_dates, sell_prices, sell_dates = es.end_sim(portfolio, trade_recs['Date'][-1], trade_recs['Open Price'][-1])
+buy_prices, buy_dates, sell_prices, sell_dates = es.end_sim(portfolio, trade_recs['Date'].iloc[-1], trade_recs['Open Price'].iloc[-1])
 
 #Plot 2 charts showing total capital over time and buy and sell points on the stock price chart
 ps.capital_plot(portfolio.getTimeCapital(), trade_recs['Open Price'], trade_recs['Date'], buy_prices, buy_dates, sell_prices, sell_dates)
