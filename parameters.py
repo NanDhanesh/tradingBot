@@ -1,7 +1,7 @@
 #Nandan Dhanesh
 #parameters.py - user settings for the simulation
 
-#portfolio size TODO
-#simulation length (testing length) TODO
-#position sizing TODO
+portfolio_size = 10000 #TODO
+sim_period = 300 #TODO
+position_sizing = 30 #TODO
 #risk settings TODO
