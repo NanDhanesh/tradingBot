@@ -31,8 +31,8 @@ def welcome():
 
     if tutorial in accept[0:4]:
         symbol = tut.tutorial()
-    else: 
-        symbol = input("\n\033[0;0mEnter a stock ticker to get started: ")
+    
+    symbol = input("\n\033[0;0mEnter a stock ticker to get started: ")
 
     symbol.upper()
 

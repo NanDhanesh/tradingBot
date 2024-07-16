@@ -27,6 +27,6 @@ def tutorial():
     tf.typing("\033[3;31mA position hitting its stop loss and being sold will look like this\033[0;0m")
     tf.typing("\033[3;33mA position hitting its 10 day lifespan and being sold will look like this\033[0;0m\n")
     tf.typing("Some popular stocks are: TSLA(Tesla Motors), MSFT(Microsoft Corp.) and NVDA(Nvidia Corp.)")
-    symbol = input("\033[0;0mEnter a stock ticker to get started: ")
-    return symbol
+    # symbol = input("\033[0;0mEnter a stock ticker to get started: ")
+    # return symbol
 
