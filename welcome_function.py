@@ -32,6 +32,13 @@ def welcome():
     if tutorial in accept[0:4]:
         symbol = tut.tutorial()
     
+    portfolio_size = ""
+    while type(portfolio_size) is not int or portfolio_size < 5000:
+        try:
+            portfolio_size = int(input("\n\033[0;0mEnter a simulated portfolio size (>=$5000): "))
+        except:
+            print("Input must be an integer greater than or equal to 5000")
+
     symbol = input("\n\033[0;0mEnter a stock ticker to get started: ")
 
     symbol.upper()
@@ -44,4 +51,4 @@ def welcome():
         "\n"
         df_source = dt.import_data(symbol)
 
-    return symbol, df_source
+    return symbol, df_source, portfolio_size

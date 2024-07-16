@@ -13,13 +13,13 @@ import welcome_function as wf
 import typing_function as tf
 
 #Calls welcome function to start program and stores returned ticker symbol and dataset
-symbol, df_source = wf.welcome() 
+symbol, df_source, portfolio_size = wf.welcome() 
 #Derives the optimum feature set for the specific stock based on its ticker symbol
 feature_set = fs.optimum_feature_set(symbol) 
 #Calls classify function that returns the recommendations of the trained RF model
 trade_recs = clf.classify(df_source, feature_set)
-#Initiates the portfolio object with $10,000 of simulated capital
-portfolio = prc.Portfolio(10000)
+#Initiates the portfolio object with amount of capital entered in welcome function
+portfolio = prc.Portfolio(portfolio_size)
 
 tf.typing("The model has been trained and is ready to start trading\n")
 tf.typing("DISCLAIMER: This is only a simulation and should not be used when trading real financial markets \n\n\n")
