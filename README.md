@@ -1,4 +1,4 @@
-# An Algorithmic Trading System.
+# SwingTrader 2
 This system is built in Python and uses a Random Forest Algorithm to make trading decisions.
 
 It can trade on any NASDAQ or NYSE stock, as long as it is not newly listed (we need at least some data).
