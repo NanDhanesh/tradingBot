@@ -1,4 +1,4 @@
-# SwingTrader 2
+# SwingTrader
 
 A Python-based stock trading simulator that uses a **Random Forest machine learning model** to generate daily Buy, Sell, or Hold recommendations — then executes them against a virtual portfolio with built-in risk management rules.
 
